@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<application xmlns="http://ns.adobe.com/air/application/3.6">
+
+        <fx:Script>
+<![CDATA[
+import flash.events.NativeWindowDisplayStateEvent;
+import flash.events.NativeWindowBoundsEvent;
+import mx.controls.Alert;
+import mx.events.FlexNativeWindowBoundsEvent;
+import flash.events.KeyboardEvent;
+import flash.events.MouseEvent;
+import mx.events.AIREvent;
+import mx.events.FlexEvent;
+ 
+protected function windowedapplication1_applicationActivateHandler(event:AIREvent):void
+{
+stage.displayState = StageDisplayState.FULL_SCREEN_INTERACTIVE;
+stage.addEventListener(KeyboardEvent.KEY_DOWN, stopesc);
+}
+ 
+private function stopesc(e:KeyboardEvent): void
+{
+if( e.keyCode == Keyboard.ESCAPE )
+{
+e.preventDefault();
+}
+}
+ 
+protected function button1_clickHandler(event:MouseEvent):void
+{
+this.close();
+}
+]]>
+</fx:Script>
+
+    
+    <id>game</id>
+    <versionNumber>1.0.0</versionNumber>
+    <filename>game</filename>
+    <description></description>
+    <!-- To localize the description, use the following format for the description element.
+        <description>
+                <text xml:lang="en">English App description goes here</text>
+                <text xml:lang="fr">French App description goes here</text>
+                <text xml:lang="ja">Japanese App description goes here</text>
+        </description>
+        -->
+    <name>game</name>
+    <!-- To localize the name, use the following format for the name element.
+        <name>
+                <text xml:lang="en">English App name goes here</text>
+                <text xml:lang="fr">French App name goes here</text>
+                <text xml:lang="ja">Japanese App name goes here</text>
+        </name>
+        -->
+    <copyright></copyright>
+    <initialWindow>
+        <content>game.swf</content>
+        <systemChrome>standard</systemChrome>
+        <transparent>false</transparent>
+        <visible>true</visible>
+        <fullScreen>true</fullScreen>
+        <autoOrients>false</autoOrients>
+        <aspectRatio>landscape</aspectRatio>
+        <renderMode>direct</renderMode>
+        <maximizable>true</maximizable>
+        <minimizable>true</minimizable>
+        <resizable>false</resizable>
+    </initialWindow>
+    <customUpdateUI>true</customUpdateUI>
+    <allowBrowserInvocation>false</allowBrowserInvocation>
+    <icon></icon>
+    <android>
+        <manifestAdditions>&lt;manifest&gt;&lt;/manifest&gt;</manifestAdditions>
+    </android>
+    <versionLabel></versionLabel>
+    <supportedLanguages>en</supportedLanguages>
+    <supportedProfiles>desktop extendedDesktop</supportedProfiles>
+
+
+</application>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:WindowedApplication xmlns:fx="http://ns.adobe.com/mxml/2009"
+xmlns:s="library://ns.adobe.com/flex/spark"
+xmlns:mx="library://ns.adobe.com/flex/halo"
+  applicationActivate="windowedapplication1_applicationActivateHandler( event)">
+<fx:Script>
+<![CDATA[
+import flash.events.NativeWindowDisplayStateEvent;
+import flash.events.NativeWindowBoundsEvent;
+import mx.controls.Alert;
+import mx.events.FlexNativeWindowBoundsEvent;
+import flash.events.KeyboardEvent;
+import flash.events.MouseEvent;
+import mx.events.AIREvent;
+import mx.events.FlexEvent;
+ 
+protected function windowedapplication1_applicationActivateHandler(event:AIREvent):void
+{
+stage.displayState = StageDisplayState.FULL_SCREEN_INTERACTIVE;
+stage.addEventListener(KeyboardEvent.KEY_DOWN, stopesc);
+}
+ 
+private function stopesc(e:KeyboardEvent): void
+{
+if( e.keyCode == Keyboard.ESCAPE )
+{
+e.preventDefault();
+}
+}
+ 
+protected function button1_clickHandler(event:MouseEvent):void
+{
+this.close();
+}
+]]>
+</fx:Script>
+<s:Button x="302" y="296" label="Button" click="button1_clickHandler(event)"/>
+ 
+</s:WindowedApplication>
