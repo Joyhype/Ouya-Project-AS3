@@ -25,7 +25,8 @@ package code.objects
 	public class Player extends Sprite
 	{
 		//..SPRITES
-		public static var playerSprite:Image;
+		//public static var playerSprite:Image;
+		public static var playerSprite:symPlayer;
         public var _speedLines:Image;
         public var _staticLines:Image;
 		public var _staticBG:Image;
@@ -37,7 +38,7 @@ package code.objects
 		public var gravity:Number = 2.5;
 		public var drag:Number = 0.92;
 		public var friction:Number = 0.75;
-		public var MAX_xSpeed:Number = 28;
+		public var MAX_xSpeed:Number = 35;
 		public var MIN_xSpeed:Number = 1;
 		public var MAX_ySpeed:Number = 25;
         public var MIN_ySpeed:Number = 5;
@@ -89,12 +90,14 @@ package code.objects
 			if(e.keyCode == 39 || e.keyCode == 68) {
 				rightPressed = true;
 
-				playerSprite.x += 1780 / 8;
+				//playerSprite.x += 1780 / 8;
+				playerSprite.x += 1780 / 4;
 			} 
 			if (e.keyCode == 37 || e.keyCode == 65) {
 				leftPressed = true;
 
-				playerSprite.x -= 1780 / 8;
+				//playerSprite.x -= 1780 / 8;
+				playerSprite.x -= 1780 / 4;
 			} 
 
 			checkPlayerBounds();
@@ -129,8 +132,8 @@ package code.objects
 		public function checkPlayerBounds():void {
 			if (playerSprite.x >= 1780) {
 				playerSprite.x = 1780;
-			} else if (playerSprite.x <= 65) {
-				playerSprite.x = 65;
+			} else if (playerSprite.x <= 100) {
+				playerSprite.x = 120;
 			}
 		}
 		//-------------------------------------------------------------------------|
@@ -139,11 +142,12 @@ package code.objects
 		//##DRAW-------------------------------------------------------------------|
 		//-------------------------------------------------------------------------|
 		public function drawPlayer():void {
-			playerSprite = new Image(Assets.getTexture("objPlayer"));
-			playerSprite.x = (stage.stageWidth - playerSprite.width)/2;
-			//playerSprite.y = 900;
-			playerSprite.y = 100;
-			addChild(playerSprite);
+			//playerSprite = new Image(Assets.getTexture("objPlayer"));
+			playerSprite = new symPlayer();
+			playerSprite.x = 120 + (1780/ 6 ) * 2; 
+			//playerSprite.y = 900; //OUYA
+			playerSprite.y = 700; 	//DESKTOP 
+			Starling.current.nativeOverlay.addChild(playerSprite);
 		}
 
         public function drawLines():void {

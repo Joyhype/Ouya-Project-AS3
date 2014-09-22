@@ -26,6 +26,7 @@ package code.levels
     import code.objects.Player;
     import code.objects.Camera;
     import code.objects.Coin;
+    import code.objects.Enemies;
     import code.objects.Gun;
     import code.levels.Sandbox;
     import code.screens.PauseScreen;
@@ -36,6 +37,7 @@ package code.levels
     {
             public var player:Player;
             public var coin:Coin;
+            public var enemy:Enemies;
             public var gun:Gun;
             public var cam:Camera;
             public var sandbox:Sandbox;
@@ -80,18 +82,20 @@ package code.levels
 
                     gun = new Gun();
                     this.addChild(gun);
+
+                    enemy = new Enemies();
+                    this.addChild(enemy);
             }
 
             //-------------------------------------------------------------------------|
             //##UPDATE FRAMES|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
             //-------------------------------------------------------------------------|
             private function updateFrame(e:Event):void {
-                
                 player.handlePlayerInput();
                 player.checkPlayerBounds();
                 gun.handlePlayerInput();
-
-                //gun._bullet.x = player.playerSprite.x; 
+                enemy.checkBounds();
+                enemy.collisionDetection();
             }
             //-------------------------------------------------------------------------|
 

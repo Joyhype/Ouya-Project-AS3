@@ -27,8 +27,8 @@ package code.objects
 
 	public class Coin extends Sprite
 	{
-		//..SPRITES
-		public static var coinSprite:CoinSprite;
+		/*/..SPRITES
+		/public static var coinSprite:CoinSprite;
 			
 		public static var coinHitSND:coinSnd;
 		//public var soundPlay:SoundChannel;
@@ -182,5 +182,6 @@ package code.objects
         	_coins.push(c);
 		}
 		//-------------------------------------------------------------------------|
+		*/
 	}
 }

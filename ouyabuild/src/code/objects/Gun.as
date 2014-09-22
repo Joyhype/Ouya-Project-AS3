@@ -13,6 +13,7 @@ package code.objects
 	import starling.events.KeyboardEvent;
 	//FLASH LIBRARIES
 	import flash.events.TimerEvent;
+	import flash.geom.Rectangle;
 	import flash.utils.Timer;
 	import flash.events.MouseEvent;
 	import flash.net.URLRequest;
@@ -28,15 +29,16 @@ package code.objects
 	public class Gun extends Sprite
 	{		
 		//##IMAGES-----------------------------------------------------------------|
-		public static var bulletBlu:Image; 
+		//public static var bulletSprite:Image; 
+		public static var bulletSprite:symBullet;
 		//-------------------------------------------------------------------------|
 		
 		//##ATTR-------------------------------------------------------------------|
 		public var _bullet:Array;
 		public var fireGun:Boolean = false;
 
-		public static var AMMOCOUNT:int = 500;
-		public static const BULLETSPEED:Number = 65;
+		public static var AMMOCOUNT:int = 9999;
+		public static const BULLETSPEED:Number = 45;
 		public static const BACK:uint = 0x01000016;
 		public static const ENTER:uint = 0x01000016;
 		//-------------------------------------------------------------------------|
@@ -107,19 +109,19 @@ package code.objects
 
 			for(var i:Number=0; i< _bullet.length; i++) {
 
-				_bullet[i].y -= BULLETSPEED;						//Add negative for Y-axis
-										
-				_bullet[i].alpha = 1; 								//Make Bullet Visible
+				_bullet[i].y -= BULLETSPEED;				
+				_bullet[i].x = Player.playerSprite.x ; 					
+				_bullet[i].alpha = 1; 								
 
 				for (var bCount=0; bCount< _bullet.length; bCount++) {
 					if ( _bullet[bCount].y <= 0 ) {
 						trace('Bullet Terminated');
-						removeChild(_bullet[bCount]);
+						Starling.current.nativeOverlay.removeChild(_bullet[bCount]);
 						_bullet.splice(bCount, 1);
 					} 
 					else if ( _bullet[bCount] == null ) {
 						_bullet.splice(bCount, 1);
-						removeChild(_bullet[bCount])
+						Starling.current.nativeOverlay.removeChild(_bullet[bCount])
 					}
 				}
 			}
@@ -132,13 +134,12 @@ package code.objects
         //-------------------------------------------------------------------------|
 		public function drawBullet():void {
 			if (AMMOCOUNT >= 1 ) {
-				bulletBlu = new Image(Assets.getTexture("bulletBlu"));
-				//lletBlu.x = Player.playerSprite.x;
-				bulletBlu.x = Player.playerSprite.x + 31; //Position of Bullet synced to the player
-				bulletBlu.alpha = 0;
-				bulletBlu.y = Player.playerSprite.y;
-				this.addChild(bulletBlu);
-				_bullet.push(bulletBlu);
+				//bulletSprite = new Image(Assets.getTexture("bulletBlu"));
+				bulletSprite = new symBullet();
+				bulletSprite.alpha = 0;
+				bulletSprite.y = Player.playerSprite.y;
+				Starling.current.nativeOverlay.addChild(bulletSprite);
+				_bullet.push(bulletSprite);
 				AMMOCOUNT --;
 			}
 		}
@@ -150,7 +151,7 @@ package code.objects
         //-------------------------------------------------------------------------|
 		public function removeBullet(bullet:Image):void {
 			trace("** Bullet Terminated");
-			removeChild(bulletBlu);
+			Starling.current.nativeOverlay.removeChild(bulletSprite);
 		}
 		//-------------------------------------------------------------------------|
 	}

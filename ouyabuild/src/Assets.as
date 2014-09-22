@@ -281,6 +281,8 @@
 		//..Objects
 		[Embed(source="../media/graphics/ImageAssets/object_player.png")]
 		public static const objPlayer:Class;
+		[Embed(source="../media/graphics/ImageAssets/object_enemy_01.png")]
+		public static const objEnemy01:Class;
 		//..BG Items
 		[Embed(source="../media/graphics/ImageAssets/bg_base01.png")]
 		public static const bgBase01:Class;
