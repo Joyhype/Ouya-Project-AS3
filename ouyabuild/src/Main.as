@@ -48,13 +48,13 @@ package
 		private function stageSetup(e:Event):void  {
 			removeEventListener(Event.ADDED_TO_STAGE, stageSetup);
 			
-			stage.displayState = StageDisplayState.NORMAL;
+			stage.displayState = StageDisplayState.FULL_SCREEN;
 		  	stage.scaleMode = StageScaleMode.EXACT_FIT;
 		   	stage.align = "";
 
 			var rect:Rectangle = new Rectangle(0, 0, stage.fullScreenWidth, stage.fullScreenHeight);
-			//screenWidth = stage.fullScreenWidth  > 2560 ? 2560 : stage.fullScreenWidth;
-			//screenHeight = stage.fullScreenHeight > 1440 ? 1440  : stage.fullScreenHeight;
+			screenWidth = stage.fullScreenWidth  > 1920 ? 1920 : stage.fullScreenWidth;
+			screenHeight = stage.fullScreenHeight > 1080 ? 1080  : stage.fullScreenHeight;
 
 			Starling.handleLostContext = false;
 			_starling = new Starling( GameEngine, stage);

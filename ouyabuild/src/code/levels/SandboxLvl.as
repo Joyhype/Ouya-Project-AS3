@@ -25,9 +25,10 @@ package code.levels
     //CODE BASE
     import code.objects.Player;
     import code.objects.Camera;
-    import code.objects.Coin;
     import code.objects.Enemies;
+    import code.objects.Stars;
     import code.objects.Gun;
+    import code.objects.UI;
     import code.levels.Sandbox;
     import code.screens.PauseScreen;
 
@@ -35,60 +36,69 @@ package code.levels
 
     public class SandboxLvl extends Sprite
     {
+            //##OBJECTS----------------------------------------------------------------|
             public var player:Player;
-            public var coin:Coin;
             public var enemy:Enemies;
             public var gun:Gun;
             public var cam:Camera;
+            public var stars:Stars;
             public var sandbox:Sandbox;
+            public var ui:UI; 
+            //-------------------------------------------------------------------------|
 
+            //##IMAGES-----------------------------------------------------------------|
             public var ground:Image;
             private var _staticBG:Image;
+            private var _planetBG:Image;
+            //-------------------------------------------------------------------------|
 
-            public var pauseBtn:PauseBtn;
-            public var pauseOverlay:Image;
-
-            public var themeSnd:themeSong;
-
-            private var ScrollX:Number = 8;
-            private var ScrollY:Number = 1.2;
-            private var onGround:Boolean;
-
+            //##TIMERS-----------------------------------------------------------------|
             private var startGameplay:Timer;
-
+            //-------------------------------------------------------------------------|
 
             //-------------------------------------------------------------------------|
             //##STAGE SETUP|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
             //-------------------------------------------------------------------------|
             public function SandboxLvl()
             {
-                    super();
-                    this.addEventListener(starling.events.Event.ADDED_TO_STAGE, stageSetup);
+                super();
+                this.addEventListener(starling.events.Event.ADDED_TO_STAGE, stageSetup);
             }
             private function stageSetup(event:Event):void {
-                    this.removeEventListener(Event.ADDED_TO_STAGE, stageSetup);
-                    initLevel();
+                this.removeEventListener(Event.ADDED_TO_STAGE, stageSetup);
+                this.addEventListener(Event.ENTER_FRAME, updateFrame);
+                initLevel();
             }
+            //-------------------------------------------------------------------------|
+            
             //-------------------------------------------------------------------------|
             //##LEVEL SETUP|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
             //-------------------------------------------------------------------------|
             public function initLevel() {    
-                    this.addEventListener(Event.ENTER_FRAME, updateFrame);
 
-                    drawBG();
+                createBG();                         //..Z1
+                   
+                stars = new Stars();                //..Z2
+                this.addChild(stars);
+            
+                createPlanet();                     //..Z3
+                
+                enemy = new Enemies();              //..Z4
+                this.addChild(enemy);
+        
+                player = new Player();              //..Z5
+                this.addChild(player); 
 
-                    player = new Player();
-                    this.addChild(player); 
+                gun = new Gun();                    //..Z6
+                this.addChild(gun);
 
-                    gun = new Gun();
-                    this.addChild(gun);
-
-                    enemy = new Enemies();
-                    this.addChild(enemy);
+                //ui = new UI();                      //..Z7
+                //this.addChild(UI);
             }
-
             //-------------------------------------------------------------------------|
-            //##UPDATE FRAMES|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+            
+            //-------------------------------------------------------------------------|
+            //##UPDATE FRAME||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
             //-------------------------------------------------------------------------|
             private function updateFrame(e:Event):void {
                 player.handlePlayerInput();
@@ -100,18 +110,18 @@ package code.levels
             //-------------------------------------------------------------------------|
 
             //-------------------------------------------------------------------------|
-            //##DRAW||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+            //##Create||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
             //-------------------------------------------------------------------------|
-            public function drawBG():void {
-                   _staticBG = new Image(Assets.getTexture("bgBase01"));
-                   this.addChild(_staticBG);
+            public function createBG():void {
+               _staticBG = new Image(Assets.getTexture("bgBase01"));
+               this.addChild(_staticBG);
             }
-            //-------------------------------------------------------------------------|
-
-
-            //-------------------------------------------------------------------------|
-            //#ENDFILE-----------------------------------------------------------------|
-
-
+            public function createPlanet():void {
+               _planetBG = new Image(Assets.getTexture("bgPlanet"));
+               _planetBG.x = (stage.stageWidth - _planetBG.width)/2 + 400;
+               _planetBG.y = (stage.stageHeight - _planetBG.height)/2 - 150;
+               this.addChild(_planetBG);
+            }
+            //-------------------------------------------------------------------------/
     }
 }

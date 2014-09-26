@@ -42,17 +42,15 @@ package code.objects
 		public var MIN_xSpeed:Number = 1;
 		public var MAX_ySpeed:Number = 25;
         public var MIN_ySpeed:Number = 5;
-        public var onGround:Boolean;
-
-
-        //public var boundingBox:Rectangle = playerSprite.bounds; 
+        public var onGround:Boolean; 
 
         private var playerFirstSpawn:Timer;			
         private var activateGravity:Timer;
 
         private var bgTween:Tween;
         private var linesTween:Tween;
-		//-------------------------------------------------------------------------|
+
+        //-------------------------------------------------------------------------|
 		//##SETUP------------------------------------------------------------------|
 		//-------------------------------------------------------------------------|
 		public function Player()
@@ -89,15 +87,15 @@ package code.objects
 		public function onKeyDownInput(e:KeyboardEvent):void {
 			if(e.keyCode == 39 || e.keyCode == 68) {
 				rightPressed = true;
-
+				//playerSprite.x += MAX_xSpeed;
 				//playerSprite.x += 1780 / 8;
-				playerSprite.x += 1780 / 4;
+				playerSprite.x += (1920 - 240) / 4;
 			} 
 			if (e.keyCode == 37 || e.keyCode == 65) {
 				leftPressed = true;
-
+				//playerSprite.x -= MAX_xSpeed;
 				//playerSprite.x -= 1780 / 8;
-				playerSprite.x -= 1780 / 4;
+				playerSprite.x -= (1920 - 240) / 4;
 			} 
 
 			checkPlayerBounds();
@@ -130,9 +128,9 @@ package code.objects
 		//##PLAYERBOUNDS-----------------------------------------------------------|
 		//-------------------------------------------------------------------------|
 		public function checkPlayerBounds():void {
-			if (playerSprite.x >= 1780) {
-				playerSprite.x = 1780;
-			} else if (playerSprite.x <= 100) {
+			if (playerSprite.x > (1920 - 120)) {
+				playerSprite.x = 1920 - 120;			
+			} else if (playerSprite.x < 120) {
 				playerSprite.x = 120;
 			}
 		}
@@ -144,9 +142,9 @@ package code.objects
 		public function drawPlayer():void {
 			//playerSprite = new Image(Assets.getTexture("objPlayer"));
 			playerSprite = new symPlayer();
-			playerSprite.x = 120 + (1780/ 6 ) * 2; 
-			//playerSprite.y = 900; //OUYA
-			playerSprite.y = 700; 	//DESKTOP 
+			playerSprite.x = 120; //+ (stage.stageWidth / 4 ) * 1; 
+			//playerSprite.y = 950; //OUYA
+			playerSprite.y = 700; //DESKTOP 
 			Starling.current.nativeOverlay.addChild(playerSprite);
 		}
 

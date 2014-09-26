@@ -35,9 +35,11 @@ package code.objects
 	
 		public static var ENEMYDROP:Number = 4; 
 		public static var ENEMYSPEED:Number = 2;
-		public static var ENEMYROTATION:Number = -0.25;
-		
+		public static var ENEMYROTATION:Number = 0.5;
+		public static var MAX_SPEED:Number = 5;
+
 		private var speedIncrease:Timer;
+		private var addEnemies:Timer; 
 
 		//-------------------------------------------------------------------------|
 		//##SETUP------------------------------------------------------------------|
@@ -54,6 +56,10 @@ package code.objects
 			speedIncrease = new Timer( 10000 , 9999 );  
 			speedIncrease.addEventListener(TimerEvent.TIMER, onIncreaseVelocity);
 			speedIncrease.start();
+
+			addEnemies = new Timer( 5000, 9999);
+			addEnemies.addEventListener(TimerEvent.TIMER, onAddEnemies);
+			addEnemies.start();
 			
 			enemyArray();
 		}
@@ -65,7 +71,7 @@ package code.objects
 
 			for ( var i:Number = 0; i < length; i++) {
 				drawEnemey01();
-				e1.x = 120 + (i * 1780/ 4 ); 
+				e1.x = 120 + (i * (1920 - 240) / 4); 
 			}
 		}
 		
@@ -77,6 +83,12 @@ package code.objects
 				}
 		    }
 		}
+
+		public function onAddEnemies(e:TimerEvent):void {
+			enemyArray();
+			ENEMYDROP = 4;
+		}
+
 		public function updateVelocity():void {
 			ENEMYSPEED += 0.5;
 		}
@@ -87,9 +99,9 @@ package code.objects
 		//##MOVEENMIES-------------------------------------------------------------|
 		//-------------------------------------------------------------------------|
 		public function moveEnemies():void {
-			  for ( var i:Number = 0; i < _enemies.length; i++) {
+			for ( var i:Number = 0; i < _enemies.length; i++) {
 		        _enemies[i].y += ENEMYSPEED;
-		        _enemies[i].rotation += Math.random() * 5;
+		        _enemies[i].rotation += ENEMYROTATION;
 		    }
 		}
 
@@ -118,10 +130,16 @@ package code.objects
 
         public function updateEnemies(e:Event):void {
         	moveEnemies();
-        	if (ENEMYSPEED >= 5) {
-				ENEMYSPEED = 5;
+        	if (ENEMYSPEED >= MAX_SPEED) {
+				ENEMYSPEED = MAX_SPEED;
 				//speedIncrease.stop();
 			}
+			for ( var i:Number = 0; i < _enemies.length; i++) {
+		     	if (_enemies[i].y >= 1080) {
+					Starling.current.nativeOverlay.removeChild(_enemies[i]);
+					_enemies.splice(i, 1)
+				}
+		    }
         }
 
         //-------------------------------------------------------------------------|

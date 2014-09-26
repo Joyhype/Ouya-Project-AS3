@@ -283,9 +283,19 @@
 		public static const objPlayer:Class;
 		[Embed(source="../media/graphics/ImageAssets/object_enemy_01.png")]
 		public static const objEnemy01:Class;
+
+		//..UI 
+		[Embed(source="../media/graphics/ImageAssets/object_ui_score.png")]
+		public static const objUIScore:Class;
+
+
 		//..BG Items
 		[Embed(source="../media/graphics/ImageAssets/bg_base01.png")]
 		public static const bgBase01:Class;
+		[Embed(source="../media/graphics/ImageAssets/object_bg_star.png")]
+		public static const bgStar:Class;
+		[Embed(source="../media/graphics/ImageAssets/object_bg_planet1.png")]
+		public static const bgPlanet:Class;
 
 
 

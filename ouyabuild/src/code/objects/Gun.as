@@ -38,7 +38,7 @@ package code.objects
 		public var fireGun:Boolean = false;
 
 		public static var AMMOCOUNT:int = 9999;
-		public static const BULLETSPEED:Number = 45;
+		public static const BULLETSPEED:Number = 35;
 		public static const BACK:uint = 0x01000016;
 		public static const ENTER:uint = 0x01000016;
 		//-------------------------------------------------------------------------|
@@ -108,9 +108,11 @@ package code.objects
 			var length:Number = _bullet.length;
 
 			for(var i:Number=0; i< _bullet.length; i++) {
-
-				_bullet[i].y -= BULLETSPEED;				
-				_bullet[i].x = Player.playerSprite.x ; 					
+				_bullet[i].x = Player.playerSprite.x; 
+				_bullet[i].y -= BULLETSPEED + Math.sin(1) * 3 ;
+				_bullet[i].rotation += 0.25;
+				//_bullet[i].scaleX += 0.2;
+				//_bullet[i].scaleY += 0.2;											
 				_bullet[i].alpha = 1; 								
 
 				for (var bCount=0; bCount< _bullet.length; bCount++) {
