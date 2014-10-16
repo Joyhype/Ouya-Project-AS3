@@ -1,12 +1,3 @@
-/*
-	* GAME: ULTRABLASTO
-	* AUTHOR: MATTHEW STENQUISt
-	* COMPANY: JOYHYPE / NIGHTMARE PANDA
-	* ALL RIGHTS RESEVERED 
-
-	- Last updated: June, 27, 2014 
-*/
-
 package code.system {
 
 	//API LIBRARIES 
@@ -35,16 +26,9 @@ package code.system {
 			initEngine();
 		}
 
-
 		private function initEngine():void {
-			//## [START]
-			//## HANDLE STATE FOR EITHER GAME LEVELS OR SCREEN
-			//## USE THIS CASE ONLY FOR DEBUG AND NOT FOR RELEASE
-			//## ONLY HAVE SM RUN DURING RELEASE BUILD WITH 0 SET 
-			//## [END] 
-
 			ScreenManager.gameEngine = this;
-			//ScreenManager.handleState(0);
+			ScreenManager.handleState(0);
 
 			_levelManager = new LevelManager();
 			_levelManager.handleState(true, 1);

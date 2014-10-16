@@ -24,39 +24,39 @@
 	import flash.media.SoundChannel;
 	import flash.system.*;
 	//LOCAL CODE
+	import code.objects.Health;
 
-	public class UI extends Sprite
+	public class UI extends Entity
 	{		
 		//##IMAGES-----------------------------------------------------------------|
-		private var _uiScore:Image;
+		private var _uiScore:uiScoreWrap;
 		//-------------------------------------------------------------------------|
 		
-		//##ATTR-------------------------------------------------------------------|
-		
-		//-------------------------------------------------------------------------|
-        
-        //-------------------------------------------------------------------------|
-        //##STAGE SETUP|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
-        //-------------------------------------------------------------------------|
+		private var hp:Health;
+
 		public function UI()
 		{
 			super();
-			this.addEventListener(starling.events.Event.ADDED_TO_STAGE, stageSetup);
 		}
-		public function stageSetup(event:Event):void {
-			this.removeEventListener(Event.ADDED_TO_STAGE, stageSetup);
-			//this.addEventListener(Event.ENTER_FRAME, updateFrame);
+
+		protected override function initialize():void {
+			super.initialize();
+			createUIScore();
+			hp = new Health();
+			this.addChild(hp);
 		}
-		//-------------------------------------------------------------------------|
+
+		protected override function update(e:Event):void {
+		}
 
 		//-------------------------------------------------------------------------|
         //##CREATE GRAPHICS|||||||||||||||||||||||||||||||||||||||||||||||||||||||||
         //-------------------------------------------------------------------------|
         public function createUIScore():void {
-           _uiScore = new Image(Assets.getTexture("objUIScore"));
-           _uiScore.x = (stage.stageWidth - _uiScore.width)/2;
-           _uiScore.y = 30;
-           this.addChild(_uiScore);
+           _uiScore = new uiScoreWrap();
+           _uiScore.x = 960;
+           _uiScore.y = 100;
+           Starling.current.nativeOverlay.addChild(_uiScore);
         }
 		//-------------------------------------------------------------------------|
 	}

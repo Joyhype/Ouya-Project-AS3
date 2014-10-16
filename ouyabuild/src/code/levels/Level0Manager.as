@@ -139,7 +139,7 @@ package code.levels
             //##UPDATE FRAMES|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
             //-------------------------------------------------------------------------|
             private function updateFrame(event:Event):void {
-                    player.handlePlayerInput();
+                    //player.handlePlayerInput();
                     worldCamera();
                     player.checkPlayerBounds();
                     detectBounds();

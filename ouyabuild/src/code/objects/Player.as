@@ -22,14 +22,11 @@ package code.objects
     import flash.geom.Rectangle;
     import flash.utils.Timer;
 
-	public class Player extends Sprite
+	public class Player extends Entity
 	{
-		//..SPRITES
-		//public static var playerSprite:Image;
+		//..SPRITE
 		public static var playerSprite:symPlayer;
-        public var _speedLines:Image;
-        public var _staticLines:Image;
-		public var _staticBG:Image;
+       
 		//..INPUT
 		public var leftPressed:Boolean = false;
 		public var rightPressed:Boolean = false;
@@ -53,55 +50,41 @@ package code.objects
         //-------------------------------------------------------------------------|
 		//##SETUP------------------------------------------------------------------|
 		//-------------------------------------------------------------------------|
-		public function Player()
-		{
+		public function Player() {
 			super();
-			this.addEventListener(starling.events.Event.ADDED_TO_STAGE, stageSetup);
 		}
 
-		public function stageSetup(event:Event):void {
-			this.removeEventListener(Event.ADDED_TO_STAGE, stageSetup);
-
-			drawPlayer();
-			this.addEventListener(Event.ENTER_FRAME, updateFrame);
-			this.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDownInput);
-			this.addEventListener(KeyboardEvent.KEY_UP, onKeyUpInput);
+		protected override function initialize():void {
+			super.initialize();
+			createPlayer();
 		}
+
+		protected override function update(e:Event):void {
+			checkPlayerBounds();
+		}
+
 		//-------------------------------------------------------------------------|
-
-		private function updateFrame(e:Event):void {
-
-		}
-
-
-		public function killInput():void {
-			this.removeEventListener(Event.ENTER_FRAME, updateFrame);
-			this.removeEventListener(KeyboardEvent.KEY_DOWN, onKeyDownInput);
-			this.removeEventListener(KeyboardEvent.KEY_UP, onKeyUpInput);
-		}
 
 
 		//-------------------------------------------------------------------------|
 		//##KEYBOARD INPUT---------------------------------------------------------|
 		//-------------------------------------------------------------------------|
-		public function onKeyDownInput(e:KeyboardEvent):void {
+		protected override function onKeyDown(e:KeyboardEvent):void {
 			if(e.keyCode == 39 || e.keyCode == 68) {
 				rightPressed = true;
-				//playerSprite.x += MAX_xSpeed;
-				//playerSprite.x += 1780 / 8;
+
 				playerSprite.x += (1920 - 240) / 4;
 			} 
 			if (e.keyCode == 37 || e.keyCode == 65) {
 				leftPressed = true;
-				//playerSprite.x -= MAX_xSpeed;
-				//playerSprite.x -= 1780 / 8;
+
 				playerSprite.x -= (1920 - 240) / 4;
 			} 
 
 			checkPlayerBounds();
 		}
 
-		public function onKeyUpInput(e:KeyboardEvent):void {
+		protected override function onKeyUp(e:KeyboardEvent):void {
 			if (e.keyCode == 39 || e.keyCode == 68) {
 				playerSprite.rotation = 0;
 				rightPressed = false;
@@ -112,15 +95,6 @@ package code.objects
 			}
 
 
-		}
-
-		public function handlePlayerInput():void {
-	        //if((rightPressed)) {
-            //    playerSprite.x += MAX_xSpeed;
-            //} 
-            //if((leftPressed)) {
-            //    playerSprite.x -= MAX_xSpeed;
-            //}
 		}
 		//-------------------------------------------------------------------------|
 
@@ -139,12 +113,11 @@ package code.objects
 		//-------------------------------------------------------------------------|
 		//##DRAW-------------------------------------------------------------------|
 		//-------------------------------------------------------------------------|
-		public function drawPlayer():void {
-			//playerSprite = new Image(Assets.getTexture("objPlayer"));
+		public function createPlayer():void {
 			playerSprite = new symPlayer();
 			playerSprite.x = 120; //+ (stage.stageWidth / 4 ) * 1; 
-			//playerSprite.y = 950; //OUYA
-			playerSprite.y = 700; //DESKTOP 
+			playerSprite.y = 950; 
+			playerSprite.gotoAndStop(1);
 			Starling.current.nativeOverlay.addChild(playerSprite);
 		}
 

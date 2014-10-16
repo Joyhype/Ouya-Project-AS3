@@ -21,9 +21,10 @@ package code.objects
     import flash.geom.Point;
     import flash.geom.Rectangle;
     import flash.utils.Timer;
-    
+    //LOCAL
     import code.objects.Player;
     import code.objects.Gun;
+    import code.objects.Bullet;
     import code.achievements.Medals;
 
 	public class Enemies extends Sprite
@@ -33,9 +34,9 @@ package code.objects
 		public var e1:symEnemy01;
 		public var _enemies:Array = new Array();
 	
-		public static var ENEMYDROP:Number = 4; 
+		public static var ENEMYDROP:Number = 5; 
 		public static var ENEMYSPEED:Number = 2;
-		public static var ENEMYROTATION:Number = 0.5;
+		public static var ENEMYROTATION:Number = Math.random()*5;
 		public static var MAX_SPEED:Number = 5;
 
 		private var speedIncrease:Timer;
@@ -70,7 +71,7 @@ package code.objects
 			var length:Number = ENEMYDROP;
 
 			for ( var i:Number = 0; i < length; i++) {
-				drawEnemey01();
+				createEnemy01();
 				e1.x = 120 + (i * (1920 - 240) / 4); 
 			}
 		}
@@ -87,10 +88,11 @@ package code.objects
 		public function onAddEnemies(e:TimerEvent):void {
 			enemyArray();
 			ENEMYDROP = 4;
+			//TODO: Implement Enemy Drop Patterns?
 		}
 
 		public function updateVelocity():void {
-			ENEMYSPEED += 0.5;
+			ENEMYSPEED += 0.3;
 		}
 
 		//-------------------------------------------------------------------------|
@@ -108,7 +110,7 @@ package code.objects
 		public function checkBounds():void {
 			for ( var i:Number = 0; i < _enemies.length; i++) {
 		     	if (_enemies[i].y >= 1080) {
-					_enemies[i].y = -200 - Math.random() * 500;
+					_enemies[i].y = -900 - Math.random() * 500;
 				}
 		    }
 		
@@ -116,10 +118,18 @@ package code.objects
 
 		public function collisionDetection():void {
 			for ( var i:Number = 0; i < _enemies.length; i++) {
-		     	if (_enemies[i].hitTestObject(Gun.bulletSprite)) {
-					trace('hit');
-					Starling.current.nativeOverlay.removeChild(_enemies[i]);
-					_enemies.splice(i, 1)
+				//for every bullet in gun.bullets
+				for(var j:Number = Bullet.bullets.length -1; j >= 0; j--) {
+					var b:Bullet = Bullet.bullets[j];
+					if (b != null) {
+						if (_enemies[i].hitTestObject(b.sprite)){
+							trace('**Bullet Has Hit Enemy', '=', i);
+							Starling.current.nativeOverlay.removeChild(_enemies[i]);
+							_enemies.splice(i,1);
+							Bullet.bullets[j].remove();	
+						}	
+					}
+					
 				}
 		    }
 		}
@@ -145,12 +155,11 @@ package code.objects
         //-------------------------------------------------------------------------|
 
 		//-------------------------------------------------------------------------|
-		//##CREATE codeIN------------------------------------------------------------|
+		//##CREATE ENEMIES---------------------------------------------------------|
 		//-------------------------------------------------------------------------|
-		public function drawEnemey01():void {
-			//e1 = new Image(Assets.getTexture("objEnemy01"));
+		public function createEnemy01():void {
 			e1 = new symEnemy01();
-			e1.y = -300 - Math.random() * 500;
+			e1.y = -200 - Math.random() * 500;
 			Starling.current.nativeOverlay.addChild(e1);
 			_enemies.push(e1);
 		}

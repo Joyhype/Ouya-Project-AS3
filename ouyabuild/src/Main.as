@@ -1,10 +1,15 @@
 ﻿/*
-	* GAME: ULTRABLASTO
-	* AUTHOR: MATTHEW STENQUISt
-	* COMPANY: JOYHYPE / NIGHTMARE PANDA
-	* ALL RIGHTS RESEVERED 
+	* GAME: HYPERSPHERE
+	
+	* AUTHOR: MATTHEW STENQUIST
+	
+	* -- @MATTSTENQUIST
+	
+	* COMPANY: JOYHYPE
+	
+	* ALL RIGHTS RESERVED;
 
-	- Last updated: June, 27, 2014 
+	* HTTP://WWW.JOYHYPE.COM
 */
 
 package
@@ -24,15 +29,11 @@ package
 	import flash.geom.Rectangle;
 	import flash.events.MouseEvent;
 
-	//NEWGROUNDS
-	import com.newgrounds.*;
-	import com.newgrounds.components.*;
-
 	//INTERNAL LIBRARIES
 	import code.system.GameEngine;
 	import code.system.Layer;
 
-	[SWF(frameRate="60", width="1920", height="1080", backgroundColor="#FFFFFF")]
+	[SWF(frameRate="60", width="1920", height="1080", backgroundColor="#000000")]
 	public class Main extends MovieClip {
 		
 		public var _starling:Starling;
@@ -40,15 +41,13 @@ package
 		public static var screenHeight:Number = 0.0;
 
 		public function Main() {
-			API.connect(root, "37262:kmNmHbga", "3ALi7a1btK6bfSpZc94assGDXFdAsA6g");
-			//API.debugMode = API.RELEASE_MODE;
 			addEventListener(Event.ADDED_TO_STAGE, stageSetup);	
 		}
 
 		private function stageSetup(e:Event):void  {
 			removeEventListener(Event.ADDED_TO_STAGE, stageSetup);
 			
-			stage.displayState = StageDisplayState.FULL_SCREEN;
+			stage.displayState = StageDisplayState.FULL_SCREEN_INTERACTIVE;
 		  	stage.scaleMode = StageScaleMode.EXACT_FIT;
 		   	stage.align = "";
 
@@ -56,9 +55,12 @@ package
 			screenWidth = stage.fullScreenWidth  > 1920 ? 1920 : stage.fullScreenWidth;
 			screenHeight = stage.fullScreenHeight > 1080 ? 1080  : stage.fullScreenHeight;
 
-			Starling.handleLostContext = false;
+			Starling.handleLostContext = true;
+			e.preventDefault();
+			
+			//Create GameEngine Class
 			_starling = new Starling( GameEngine, stage);
-			_starling.antiAliasing = 1;
+			_starling.antiAliasing = 0;
 			_starling.start();
 			
 			_starling.showStats = true;	
@@ -66,19 +68,17 @@ package
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, enableFullScreen);
 			stage.addEventListener(Event.RESIZE, resize);	
 		}
+		
 		private function enableFullScreen(e:KeyboardEvent):void {
-		    if (e.keyCode == 8) {
-		    	stage.displayState = StageDisplayState.FULL_SCREEN_INTERACTIVE;
-		  		stage.scaleMode = StageScaleMode.NO_SCALE
-		   		stage.align = "";
-		    } 
 		}
+		
 		private function escKeyOverride(e:KeyboardEvent):void  {
 			 if (e.keyCode == 27) {
 			 	e.preventDefault();
 			   	stage.align = "";
 		    }
 		}
+
 		private function resize(e:Event):void {
 			var viewPortRectangle:Rectangle = new Rectangle();
 			viewPortRectangle.width     = stage.stageWidth;

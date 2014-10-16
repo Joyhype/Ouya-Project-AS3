@@ -30,9 +30,6 @@ package code.managers
 		public static const PREV_LEVEL:String = "prevLevel";
 		public static var GAMESTATE:Boolean;
 
-
-
-
 		//-------------------------------------------------------------------------|
 		//##STAGE SETUP|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 		//-------------------------------------------------------------------------|
@@ -43,7 +40,7 @@ package code.managers
 		}
 
 		private function stageSetup(event:Event):void {
-			trace("[AXION ENGINE] :: **** LEVEL MANAGER ACTIVE");
+			trace("[GAME] :: **** LEVEL MANAGER ACTIVE");
 			this.removeEventListener(Event.ADDED_TO_STAGE, stageSetup);
 		}
 
@@ -67,14 +64,14 @@ package code.managers
 		//##CREATE SCREENS||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 		//-------------------------------------------------------------------------|
 		private function levelIntro():void {
-			trace("[AXION ENGINE] :: LEVEL CREATED - INTRODUCTION");
+			trace("[GAME] :: LEVEL CREATED - INTRODUCTION");
 			_level0Manager = new Level0Manager();
 			this.addChild(_level0Manager);
 			GAMESTATE = true;
 		}
 
 		private function sandboxLevel():void {
-			trace("[AXION ENGINE] :: Sandbox Lvl Created");
+			trace("[GAME] :: Sandbox Lvl Created");
 			_sandboxLvl = new SandboxLvl();
 			this.addChild(_sandboxLvl);
 			GAMESTATE = true;

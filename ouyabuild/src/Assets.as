@@ -283,11 +283,14 @@
 		public static const objPlayer:Class;
 		[Embed(source="../media/graphics/ImageAssets/object_enemy_01.png")]
 		public static const objEnemy01:Class;
+		[Embed(source="../media/graphics/ImageAssets/object_powerups_hp.png")]
+		public static const objPWRUPHealth:Class;
 
 		//..UI 
 		[Embed(source="../media/graphics/ImageAssets/object_ui_score.png")]
 		public static const objUIScore:Class;
-
+		[Embed(source="../media/graphics/ImageAssets/object_ui_hpAlive.png")]
+		public static const objUIHPAlive:Class;
 
 		//..BG Items
 		[Embed(source="../media/graphics/ImageAssets/bg_base01.png")]
@@ -296,7 +299,8 @@
 		public static const bgStar:Class;
 		[Embed(source="../media/graphics/ImageAssets/object_bg_planet1.png")]
 		public static const bgPlanet:Class;
-
+		[Embed(source="../media/graphics/ImageAssets/object_bg_mtns.png")]
+		public static const bgMtns:Class;
 
 
 

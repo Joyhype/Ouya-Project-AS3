@@ -1,12 +1,3 @@
-/*
-	* GAME: ULTRABLASTO
-	* AUTHOR: MATTHEW STENQUISt
-	* COMPANY: JOYHYPE / NIGHTMARE PANDA
-	* ALL RIGHTS RESEVERED 
-
-	- Last updated: June, 27, 2014 
-*/
-
 package code.managers
 {
 	import starling.display.Sprite;
@@ -42,15 +33,15 @@ package code.managers
 		public static function handleState(STATE:int):void {			
 			switch(STATE) {		
 				case AD:  
-				screenAd(); 
+					screenAd(); 
 				break;
 
 				case STUDIO: 
-				screenStudio();
+					screenStudio();
 				break;
 
 				case MENU: 
-				screenMenuStartup(); 
+					screenMenuStartup(); 
 				break;
 			}
 		}
@@ -61,19 +52,19 @@ package code.managers
 		//-------------------------------------------------------------------------|
 		//--ADVERTISEMENT SCREEN (SPONSOR-PRELOADER)
 		public static function screenAd() {
-			trace("[GAME ENGINE] :: SCREEN SWITCHED TO AD SCREEN");
+			trace("[GAME] :: SCREEN SWITCHED TO AD SCREEN");
 			_adScreen = new AdScreen();
 			gameEngine.addChild(_adScreen);
 		}
 		//--STUDIO SCREEN (COMPANY LOGOS)
 		public static function screenStudio() {
-			trace("[GAME ENGINE] :: SCREEN SWITCHED TO STUDIO SCREEN");
+			trace("[GAME] :: SCREEN SWITCHED TO STUDIO SCREEN");
 			_studio = new StudioScreen();
 			gameEngine.addChild(_studio);
 		}
 		//--FX OVERLAY SCREEN (OVERLAY FX)
 		public static function screenMenuStartup() {
-			trace("[GAME ENGINE] :: SCREEN SWITCHED TO MENUSTARTUP");
+			trace("[GAME] :: SCREEN SWITCHED TO MENUSTARTUP");
 			_menuStartup = new MenuStartup();
 			gameEngine.addChild(_menuStartup);
 		}
